@@ -1,6 +1,5 @@
 package com.wipro.bank.dao;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,29 +51,28 @@ public class BankDAO {
 	  return isValid;
 	 
  }
- public float findBalance(String accountNumber)
- {
-	 if(validateAccount(accountNumber)) {
-		
-	 try {
-		 Connection con=DBUtil.getDBConnection();
-		 String query="SELECT balance FROM ACCOUNT_TBL WHERE Account_Number=?";
-		 PreparedStatement ps = con.prepareStatement(query);
-		 ps.setString(1,accountNumber);
-		 ResultSet rs=ps.executeQuery();
-		 rs.next();
-		float balance= rs.getFloat(1);
-		return balance;
-		 }
-	 catch(SQLException e)
-	 {
-		 return -1;
-	 }
-	 }
-	 return -1;	 
-	 
- 
- }
+ public float findBalance(String accountNumber) {
+	    float balance = -1;
+	    if(validateAccount(accountNumber)) {
+	        try (Connection con = DBUtil.getDBConnection();
+	             PreparedStatement ps = con.prepareStatement("SELECT balance FROM ACCOUNT_TBL WHERE Account_Number=?")) {
+
+	            ps.setString(1, accountNumber);
+	            ResultSet rs = ps.executeQuery();
+
+	            if(rs.next()) {
+	                balance = rs.getFloat("balance"); 
+	            } else {
+	                System.out.println("Account not found in findBalance");
+	            }
+
+	        } catch(SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return balance;
+	}
+
  public boolean updateBalance(String accountNumber,float newBalance)
  {
 	 try {

@@ -1,9 +1,11 @@
 package com.wipro.bank.main;
+
 import com.wipro.bank.bean.TransferBean;
 import com.wipro.bank.service.BankService;
 
 public class Main {
 	public static void main(String[] args) {
+
 		BankService bankService=new BankService();
 		System.out.println(bankService.checkBalance("1234567890"));
 		TransferBean transferBean=new TransferBean();
@@ -15,5 +17,4 @@ public class Main {
 		);
 		System.out.println(bankService.transfer(transferBean));
 	}
-
 }
