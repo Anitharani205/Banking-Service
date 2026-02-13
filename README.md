@@ -1,5 +1,5 @@
 
-💰 Interest Calculator (Java) :
+Interest Calculator (Java) :
 
 This project simulates a basic "Bank Deposit Service" using a Java console application.  
 It allows customers to enter deposit details such as principal amount, tenure, gender, and age.  
